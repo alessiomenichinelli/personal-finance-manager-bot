@@ -7,7 +7,7 @@ import pfm
 TOKEN = "5948666656:AAFN18bT4t3AzpuY1JikmEf7v8QzAHcdAU4"
 DEBUG_TOKEN = "5817633243:AAG_f7rwh3anUqnU5VgMLWXb4oB_OPaIqsE"
 
-bot = telebot.TeleBot(DEBUG_TOKEN, parse_mode=None)
+bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
 # Global variable e funcion
 
@@ -200,6 +200,17 @@ def add_expense(message):
           if payment_method not in pa_names:
                bot.send_message(message.chat.id, "Metodo di pagamento non trovato")
                return
+
+          try: 
+               amount = float(amount)
+          except:
+               bot.send_message(message.chat.id, "Valore spesa errato")
+               return 
+               
+          if not pfm.is_date(date):
+               bot.send_message(message.chat.id, "Formato data errato")
+               return
+
 
           pfm.add_expense([str(message.chat.id), balance, payment_method, amount, date, category, description])
 

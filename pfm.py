@@ -264,3 +264,18 @@ def remove_expense(expense):
 def add_capital_letter(string):
     string = string[0].upper() + string[1:]
     return string
+
+def is_date(string):
+    try:
+        dd = int(string[0:1])
+        mm = int(string[3:4])
+    except:
+        return False
+    
+    if 1 <= dd <= 31:
+        return False
+    
+    if 1 <= mm <= 12:
+        return False
+    
+    return True
